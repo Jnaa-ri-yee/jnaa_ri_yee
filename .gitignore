@@ -1,0 +1,77 @@
+# =========================
+# General
+# =========================
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+
+# =========================
+# VSCode
+# =========================
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# =========================
+# Flutter / Dart
+# =========================
+app/.dart_tool/
+app/build/
+app/.flutter-plugins
+app/.flutter-plugins-dependencies
+app/.packages
+app/pubspec.lock
+app/.metadata
+
+# =========================
+# Python
+# =========================
+**/__pycache__/
+**/*.py[cod]
+**/*.pyo
+**/*.pyd
+**/.Python
+**/venv/
+**/.venv/
+**/env/
+**/.env
+**/.env.*
+
+# =========================
+# Node / Prisma
+# =========================
+database/node_modules/
+database/.env
+database/dist/
+database/.prisma/
+
+# =========================
+# Docker
+# =========================
+docker/.env
+docker/*.log
+
+# =========================
+# Build / CMake / Binaries
+build/
+**/build/
+**/*.exe
+**/*.dll
+**/*.so
+**/*.dylib
+
+# =========================
+# IDEs
+# =========================
+.idea/
+*.iml
+
+# =========================
+# Secrets
+# =========================
+*.key
+*.pem
+*.crt
+*.p12

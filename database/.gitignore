@@ -1,0 +1,12 @@
+node_modules
+# Keep environment variables out of version control
+.env
+.env.local
+
+/generated/prisma
+
+node_modules/
+dist/
+token.json
+credentials.json
+*.log

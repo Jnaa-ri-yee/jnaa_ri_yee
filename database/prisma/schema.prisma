@@ -1,0 +1,264 @@
+/*
+ * ======================================================                    *
+ *  Project      : database                                                  *
+ *  File         : schema.prisma                                             *
+ *  Team         : Equipo Jña'a Ri Y'ë'ë                                     *
+ *  Developer    : Axel Eduardo Urbina Secundino                             *
+ *  Created      : 2026-01-16                                                *
+ *  Last Updated : 2026-01-17 03:05                                          *
+ * ======================================================                    *
+ *                                                                           *
+ *  License:                                                                 *
+ * © 2026 Equipo Jña'a Ri Y'ë'ë                                              *
+ *                                                                           *
+ * Este software y su código fuente son propiedad exclusiva                  *
+ * del equipo Jña'a Ri Y'ë'ë.                                                *
+ *                                                                           *
+ * Uso permitido únicamente para:                                            *
+ * - Evaluación académica                                                    *
+ * - Revisión técnica                                                        *
+ * - Convocatorias, hackatones o concursos                                   *
+ *                                                                           *
+ * Queda prohibida la copia, modificación, redistribución                    *
+ * o uso sin autorización expresa del equipo.                                *
+ *                                                                           *
+ * El software se proporciona "tal cual", sin garantías.                     *
+ */
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+// CATEGORIZACIÓN Y ORGANIZACIÓN
+model Categoria {
+  id          Int         @id @default(autoincrement())
+  codigo      String      @unique
+  nombre      String
+  descripcion String?
+  orden       Int         @default(0)
+  padreId     Int?
+  padre       Categoria?  @relation("JerarquiaCategoria", fields: [padreId], references: [id])
+  hijos       Categoria[] @relation("JerarquiaCategoria")
+  senas       Sena[]
+  creadoEn    DateTime    @default(now())
+  actualizadoEn DateTime  @updatedAt
+
+  @@index([padreId])
+  @@index([codigo])
+}
+
+model Sena {
+  id          Int         @id @default(autoincrement())
+  codigo      String      @unique
+  nombre      String
+  descripcion String?
+  dificultad  Dificultad  @default(BASICO)
+  activa      Boolean     @default(true)
+
+  categoriaId Int
+  categoria   Categoria   @relation(fields: [categoriaId], references: [id])
+  muestras    Muestra[]
+  etiquetas   SenaEtiqueta[]
+
+  creadoEn       DateTime @default(now())
+  actualizadoEn  DateTime @updatedAt
+
+  @@index([categoriaId])
+  @@index([codigo])
+  @@index([dificultad])
+}
+
+// ETIQUETAS
+model Etiqueta {
+  id        Int            @id @default(autoincrement())
+  nombre    String         @unique
+  tipo      TipoEtiqueta   @default(GENERAL)
+  senas     SenaEtiqueta[]
+  creadoEn  DateTime       @default(now())
+}
+
+model SenaEtiqueta {
+  senaId      Int
+  etiquetaId  Int
+  sena        Sena      @relation(fields: [senaId], references: [id], onDelete: Cascade)
+  etiqueta    Etiqueta  @relation(fields: [etiquetaId], references: [id], onDelete: Cascade)
+  creadoEn    DateTime  @default(now())
+
+  @@id([senaId, etiquetaId])
+}
+
+// MUESTRAS Y DATOS
+model Muestra {
+  id              Int         @id @default(autoincrement())
+  tipo            TipoMuestra
+  rutaArchivo     String
+  nombreOriginal  String?
+  tamanoArchivo   Int?
+
+  ancho           Int?
+  alto            Int?
+  fps             Int?
+  duracion        Float?
+  formato         String?
+
+  calidad         Calidad     @default(PENDIENTE)
+  validada        Boolean     @default(false)
+  validadaPor     String?
+  validadaEn      DateTime?
+
+  fuente          FuenteDatos @default(MANUAL)
+  loteSubidaId    String?
+  loteSubida      LoteSubida? @relation(fields: [loteSubidaId], references: [id])
+
+  senaId          Int
+  sena            Sena        @relation(fields: [senaId], references: [id], onDelete: Cascade)
+  cajas           CajaDelimitadora[]
+  puntosClaves    ConjuntoPuntosClaves[]
+  metadatos       MetadatoMuestra[]
+
+  creadoEn        DateTime    @default(now())
+  actualizadoEn   DateTime    @updatedAt
+
+  @@index([senaId, tipo])
+  @@index([calidad])
+  @@index([loteSubidaId])
+  @@index([creadoEn])
+  @@index([senaId, calidad, tipo])
+}
+
+model CajaDelimitadora {
+  id         Int      @id @default(autoincrement())
+  x          Float
+  y          Float
+  ancho      Float
+  alto       Float
+  etiqueta   EtiquetaCaja
+  confianza  Float    @default(1.0)
+
+  muestraId  Int
+  muestra    Muestra  @relation(fields: [muestraId], references: [id], onDelete: Cascade)
+
+  creadoEn   DateTime @default(now())
+
+  @@index([muestraId])
+}
+
+model ConjuntoPuntosClaves {
+  id         Int              @id @default(autoincrement())
+  tipo       TipoPuntosClave
+  datos      Json
+  confianza  Float            @default(1.0)
+
+  muestraId  Int
+  muestra    Muestra          @relation(fields: [muestraId], references: [id], onDelete: Cascade)
+
+  creadoEn   DateTime         @default(now())
+
+  @@index([muestraId, tipo])
+}
+
+model MetadatoMuestra {
+  id        Int      @id @default(autoincrement())
+  clave     String
+  valor     String
+
+  muestraId Int
+  muestra   Muestra  @relation(fields: [muestraId], references: [id], onDelete: Cascade)
+
+  creadoEn  DateTime @default(now())
+
+  @@index([muestraId, clave])
+}
+
+// LOTES AUTOMÁTICOS
+model LoteSubida {
+  id               String      @id @default(cuid())
+  nombre           String?
+  descripcion      String?
+  totalArchivos    Int         @default(0)
+  procesados       Int         @default(0)
+  exitosos         Int         @default(0)
+  fallidos         Int         @default(0)
+  estado           EstadoLote  @default(PENDIENTE)
+
+  categoriaObjetivoId Int?
+  autoValidar         Boolean  @default(false)
+
+  errores          String?
+  iniciadoEn       DateTime?
+  completadoEn     DateTime?
+  creadoEn         DateTime    @default(now())
+  actualizadoEn    DateTime    @updatedAt
+
+  muestras         Muestra[]
+
+  @@index([estado])
+  @@index([creadoEn])
+}
+
+// ENUMS
+enum TipoMuestra {
+  IMAGEN
+  VIDEO
+}
+
+enum EtiquetaCaja {
+  MANO
+  CUERPO
+  CARA
+  OBJETO
+}
+
+enum TipoPuntosClave {
+  MANO
+  CUERPO
+  CARA
+}
+
+enum Dificultad {
+  BASICO
+  INTERMEDIO
+  AVANZADO
+}
+
+enum Calidad {
+  PENDIENTE
+  BAJA
+  MEDIA
+  ALTA
+  EXCELENTE
+}
+
+enum FuenteDatos {
+  MANUAL
+  LOTE
+  GENERADO
+  EXTERNO
+}
+
+enum TipoEtiqueta {
+  GENERAL
+  LINGUISTICO
+  TECNICO
+  DIFICULTAD
+}
+
+enum EstadoLote {
+  PENDIENTE
+  PROCESANDO
+  COMPLETADO
+  FALLIDO
+  CANCELADO
+}
