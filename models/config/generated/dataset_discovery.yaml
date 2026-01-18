@@ -1,0 +1,124 @@
+classes:
+- a
+- b
+- c
+- d
+- e
+- f
+- g
+- h
+- i
+- j
+- k
+- l
+- m
+- n
+- o
+- p
+- q
+- r
+- s
+- t
+- u
+- v
+- w
+- x
+- y
+- z
+dataset_path: C:\Users\axedu\Documents\Jnaa-Ri-yee\Jnaa-ri-yee\database\datasets
+dataset_type: image
+distribution:
+  avg_samples: 13.538461538461538
+  class_hierarchy: {}
+  files_per_class:
+    a: 21
+    b: 16
+    c: 16
+    d: 17
+    e: 16
+    f: 17
+    g: 11
+    h: 11
+    i: 15
+    j: 2
+    k: 2
+    l: 15
+    m: 20
+    n: 16
+    o: 21
+    p: 20
+    q: 2
+    r: 22
+    s: 23
+    t: 11
+    u: 19
+    v: 19
+    w: 14
+    x: 2
+    y: 2
+    z: 2
+  imbalance_ratio: 11.5
+  max_samples: 23
+  min_samples: 2
+  total_classes: 26
+  total_files: 352
+hierarchy:
+  alfabeto:
+    consonantes:
+    - b
+    - c
+    - d
+    - f
+    - g
+    - h
+    - j
+    - k
+    - l
+    - m
+    - n
+    - p
+    - q
+    - r
+    - s
+    - t
+    - v
+    - w
+    - x
+    - y
+    - z
+    vocales:
+    - a
+    - e
+    - i
+    - o
+    - u
+structure:
+  paths:
+  - alfabeto\consonantes\b
+  - alfabeto\consonantes\c
+  - alfabeto\consonantes\d
+  - alfabeto\consonantes\f
+  - alfabeto\consonantes\g
+  - alfabeto\consonantes\h
+  - alfabeto\consonantes\j
+  - alfabeto\consonantes\k
+  - alfabeto\consonantes\l
+  - alfabeto\consonantes\m
+  - alfabeto\consonantes\n
+  - alfabeto\consonantes\p
+  - alfabeto\consonantes\q
+  - alfabeto\consonantes\r
+  - alfabeto\consonantes\s
+  - alfabeto\consonantes\t
+  - alfabeto\consonantes\v
+  - alfabeto\consonantes\w
+  - alfabeto\consonantes\x
+  - alfabeto\consonantes\y
+  - alfabeto\consonantes\z
+  - alfabeto\vocales\a
+  - alfabeto\vocales\e
+  - alfabeto\vocales\i
+  - alfabeto\vocales\o
+  - alfabeto\vocales\u
+  total_directories: 26
+total_classes: 26

@@ -1,0 +1,89 @@
+augmentation:
+  image:
+    brightness: 0.2
+    contrast: 0.2
+    horizontal_flip: 0.5
+    normalization:
+      mean:
+      - 0.485
+      - 0.456
+      - 0.406
+      std:
+      - 0.229
+      - 0.224
+      - 0.225
+    resize:
+    - 224
+    - 224
+    rotation: 15
+dataset:
+  batch_size: 16
+  class_names:
+  - a
+  - b
+  - c
+  - d
+  - e
+  - f
+  - g
+  - h
+  - i
+  - j
+  - k
+  - l
+  - m
+  - n
+  - o
+  - p
+  - q
+  - r
+  - s
+  - t
+  - u
+  - v
+  - w
+  - x
+  - y
+  - z
+  num_classes: 26
+  num_workers: 4
+  path: C:\Users\axedu\Documents\Jnaa-Ri-yee\Jnaa-ri-yee\database\datasets
+  split_ratio:
+    test: 0.15
+    train: 0.7
+    val: 0.15
+  type: image
+features:
+  engineered_features:
+    geometric: true
+    statistical: true
+    temporal: false
+  landmarks:
+    enabled: true
+    face: false
+    hands: true
+    pose: true
+model:
+  architecture: cnn_landmark_fusion
+  backbone: efficientnet_b0
+  num_classes: 26
+  pretrained: true
+  type: hybrid
+  use_landmarks: true
+training:
+  checkpointing:
+    save_best: true
+    save_frequency: 5
+  early_stopping:
+    min_delta: 0.001
+    patience: 10
+  epochs: 50
+  learning_rate: 0.001
+  loss: cross_entropy
+  metrics:
+  - accuracy
+  - f1_score
+  - precision
+  - recall
+  optimizer: adamw
+  scheduler: cosine_annealing
