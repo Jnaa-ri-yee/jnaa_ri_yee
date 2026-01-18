@@ -10,3 +10,10 @@ dist/
 token.json
 credentials.json
 *.log
+
+*.jpeg
+*.gif
+*.bmp
+*.webp
+*.png
+*.jpg
