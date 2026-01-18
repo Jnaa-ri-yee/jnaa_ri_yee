@@ -173,9 +173,9 @@ class VersionManager:
         eval_dir = Path('evaluation') / version_name
         eval_dir.mkdir(parents=True, exist_ok=True)
         
-        print(f"✅ Versión {version_name} creada exitosamente")
-        print(f"   📁 Modelos en: {version_dir}")
-        print(f"   📊 Evaluación en: {eval_dir}")
+        print(f"Versión {version_name} creada exitosamente")
+        print(f"Modelos en: {version_dir}")
+        print(f"Evaluación en: {eval_dir}")
         
         return version_name
     
@@ -278,7 +278,7 @@ class VersionManager:
         version_dir = self.base_dir / version
         
         if not version_dir.exists():
-            print(f"⚠️  Versión {version} no encontrada")
+            print(f"Versión {version} no encontrada")
             return False
         
         # Eliminar directorio
@@ -291,7 +291,7 @@ class VersionManager:
         ]
         self._save_registry()
         
-        print(f"🗑️  Versión {version} eliminada")
+        print(f"Versión {version} eliminada")
         return True
     
     def compare_versions(self, version1: str, version2: str) -> Dict:
@@ -348,11 +348,11 @@ class VersionManager:
         version_dir = self.base_dir / version
         
         if not version_dir.exists():
-            print(f"⚠️  Versión {version} no encontrada")
+            print(f"Versión {version} no encontrada")
             return False
         
         # Crear archivo comprimido
         shutil.make_archive(output_path, 'zip', version_dir)
-        print(f"📦 Versión {version} exportada a {output_path}.zip")
+        print(f"Versión {version} exportada a {output_path}.zip")
         
         return True
