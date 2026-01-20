@@ -40,16 +40,35 @@ class TeamSection extends StatelessWidget {
               fontSize: 26,
               fontWeight: FontWeight.bold)),
       SizedBox(height: 20),
-      TeamMemberCard(
-        name: "Anahi Figueroa González",
-        github: "https://github.com/Ann8ix",
-        linkedin:
-            "https://www.linkedin.com/in/anahi-figueroa-gonzalez-2a4a3438b",
-      ),
-      TeamMemberCard(
+            TeamMemberCard(
         name: "Axel Eduardo Urbina Secundino",
         github: "https://github.com/AEUS-06",
         linkedin: "https://www.linkedin.com/in/axel-eduardo-u-8124a837b",
+      ),
+      TeamMemberCard(
+        name: "Anahi Figueroa González",
+        github: "https://github.com/Ann8ix",
+        linkedin: "https://www.linkedin.com/in/anahi-figueroa-gonzalez-2a4a3438b",
+      ),
+      TeamMemberCard(
+        name: "María Fernanda de Jesús Casimiro",
+        github: "https://github.com/AEUS-06",
+        linkedin: "",
+      ),
+      TeamMemberCard(
+        name: "Yoatzin Marelly Jiménez Hipólito",
+        github: "https://github.com/MellyWrld-63",
+        linkedin: "",
+      ),
+      TeamMemberCard(
+        name: "Carlos Ramírez Zepeda",
+        github: "https://github.com/rufus-raz",
+        linkedin: "",
+      ),
+      TeamMemberCard(
+        name: "Juan Florentino García",
+        github: "https://github.com/zombie01j",
+        linkedin: "",
       ),
     ]);
   }
