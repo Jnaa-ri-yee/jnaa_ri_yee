@@ -54,7 +54,7 @@ Jnaa-ri-yee/
 
 ### 1️⃣ Repositorio Demo
 **Prototipo Funcional - Fase 1**
-[text](https://github.com/AEUS-06/jnaa_ri_yee)
+[repositorio](https://github.com/AEUS-06/jnaa_ri_yee)
 
 Sistema de demostración que valida el concepto técnico del reconocimiento de señas LSM.
 
@@ -73,7 +73,7 @@ Sistema de demostración que valida el concepto técnico del reconocimiento de s
 
 ### 2️⃣ Repositorio Web
 **Plataforma Institucional y Comunidad**
-[text](link)
+[página web](https://www.jnaa-ri-yee.com/)
 
 Sitio web que sirve como punto central de información y colaboración del proyecto.
 
@@ -113,7 +113,7 @@ Aplicación construida con Flutter para uso en producción del sistema de recono
 
 ### 4️⃣ Repositorio Server
 **Infraestructura Backend y Modelos ML**
-[text](https://github.com/Jnaa-ri-yee)
+[repositorio](https://github.com/Jnaa-ri-yee)
 
 Servidor de producción desplegado en Raspberry Pi 5 con arquitectura containerizada.
 
