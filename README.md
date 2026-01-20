@@ -2,6 +2,7 @@
 **página web https://www.jnaa-ri-yee.com**
 
 Sistema de reconocimiento de Lengua de Señas Mexicana (LSM) mediante visión por computadora e inteligencia artificial
+(la demo se encuntra en el Releases del repositorio)
 
 ## 📋 Tabla de Contenidos
 - [Descripción General](#-descripción-general)
@@ -58,6 +59,7 @@ Jnaa-ri-yee/
 [repositorio](https://github.com/AEUS-06/jnaa_ri_yee)
 
 Sistema de demostración que valida el concepto técnico del reconocimiento de señas LSM.
+(El Backend corre en Railway)
 
 **Características:**
 - Reconocimiento de alfabeto LSM (vocales: A, E, I, O, U)
