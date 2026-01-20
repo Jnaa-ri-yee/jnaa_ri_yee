@@ -41,7 +41,6 @@ class NeonNavbar extends StatefulWidget {
   State<NeonNavbar> createState() => _NeonNavbarState();
 }
 
-
 class _NeonNavbarState extends State<NeonNavbar>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
@@ -53,9 +52,6 @@ class _NeonNavbarState extends State<NeonNavbar>
     NavItem(icon: Icons.camera_alt_rounded, label: 'Cámara'),
     NavItem(icon: Icons.info_rounded, label: 'Info'),
   ];
-
-  double _indicatorPosition = 0.0;
-  final bool _isDragging = false;
 
   @override
   void initState() {
@@ -74,12 +70,6 @@ class _NeonNavbarState extends State<NeonNavbar>
       begin: Colors.blueAccent.withOpacity(0.7),
       end: Colors.cyanAccent.withOpacity(0.9),
     ).animate(_controller);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        _indicatorPosition = widget.currentIndex.toDouble();
-      });
-    });
   }
 
   @override
@@ -88,18 +78,18 @@ class _NeonNavbarState extends State<NeonNavbar>
       animation: _controller,
       builder: (context, child) {
         return Container(
-          height: 80,
+          height: 70,
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Colors.black.withOpacity(0.8),
-                Colors.black.withOpacity(0.6),
+                const Color(0xFF1a1a2e).withOpacity(0.95),
+                const Color(0xFF16213e).withOpacity(0.95),
               ],
             ),
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(35),
             border: Border.all(
               color: _colorAnimation.value!,
               width: 1.5,
@@ -117,100 +107,57 @@ class _NeonNavbarState extends State<NeonNavbar>
               ),
             ],
           ),
-          child: Stack(
-            children: [
-              
-              LayoutBuilder(builder: (context, constraints) {
-                final segmentWidth = constraints.maxWidth / _navItems.length;
-                final left = segmentWidth * _indicatorPosition + segmentWidth / 2 - 25;
-
-                return AnimatedPositioned(
-                  duration: _isDragging 
-                      ? Duration.zero 
-                      : const Duration(milliseconds: 400),
-                  curve: Curves.elasticOut,
-                  left: left,
-                  top: 10,
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          _colorAnimation.value!,
-                          Colors.blueAccent.withOpacity(0.8),
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: _colorAnimation.value!.withOpacity(0.8),
-                          blurRadius: _glowAnimation.value * 1.5,
-                          spreadRadius: 2,
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      _navItems[widget.currentIndex].icon,
-                      color: Colors.white,
-                      size: 24,
-                    ),
-                  ),
-                );
-              }),
-
-              
-              Row(
-                children: List.generate(_navItems.length, (index) {
-                  final isSelected = widget.currentIndex == index;
-                  return Expanded(
-                    child: GestureDetector(
-                      onTap: () => _onItemTapped(index),
-                      behavior: HitTestBehavior.opaque,
-                      child: SizedBox(
-                        height: double.infinity,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(35),
+            child: Row(
+              children: _navItems.asMap().entries.map((entry) {
+                final index = entry.key;
+                final item = entry.value;
+                final isSelected = widget.currentIndex == index;
+                
+                return Expanded(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () => widget.onItemSelected(index),
+                      borderRadius: BorderRadius.circular(35),
+                      splashColor: Colors.cyanAccent.withOpacity(0.2),
+                      highlightColor: Colors.blueAccent.withOpacity(0.1),
+                      child: Center(
                         child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              _navItems[index].icon,
+                              item.icon,
                               color: isSelected 
                                   ? Colors.white 
                                   : Colors.blueAccent.withOpacity(0.5),
-                              size: isSelected ? 28 : 24,
+                              size: isSelected ? 26 : 24,
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              _navItems[index].label,
+                              item.label,
                               style: TextStyle(
                                 color: isSelected 
                                     ? Colors.white 
                                     : Colors.blueAccent.withOpacity(0.7),
-                                fontSize: isSelected ? 12 : 10,
-                                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                fontSize: isSelected ? 12 : 11,
+                                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
-                  );
-                }),
-              ),
-            ],
+                  ),
+                );
+              }).toList(),
+            ),
           ),
         );
       },
     );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _indicatorPosition = index.toDouble();
-    });
-    widget.onItemSelected(index);
   }
 
   @override

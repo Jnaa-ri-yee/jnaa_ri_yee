@@ -52,23 +52,23 @@ class TeamSection extends StatelessWidget {
       ),
       TeamMemberCard(
         name: "María Fernanda de Jesús Casimiro",
-        github: "https://github.com/AEUS-06",
-        linkedin: "",
+        github: "https://github.com/wiwiwifern",
+        linkedin: "Proximamente",
       ),
       TeamMemberCard(
         name: "Yoatzin Marelly Jiménez Hipólito",
         github: "https://github.com/MellyWrld-63",
-        linkedin: "",
+        linkedin: "Proximamente",
       ),
       TeamMemberCard(
         name: "Carlos Ramírez Zepeda",
         github: "https://github.com/rufus-raz",
-        linkedin: "",
+        linkedin: "Proximamente",
       ),
       TeamMemberCard(
         name: "Juan Florentino García",
         github: "https://github.com/zombie01j",
-        linkedin: "",
+        linkedin: "Proximamente",
       ),
     ]);
   }
